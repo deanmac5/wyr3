@@ -12,25 +12,9 @@ class Login extends Component {
         return (
             <div align="center">
                 <h1>Please login</h1>
-                {/* <ul>
-                    {this.props.userIds.map((id) => (
-                        <li className="no-bullets"
-                            key={id}>
-                            <div>
-                                <User id={id} />
-                            </div>
-                        </li>
-                    ))}
-                </ul> */}
+               
             </div>
         );
     }
 }
-
-function mapStateToProps({ authedUser }) {
-    return {
-        authedUser: authedUser
-    }
-}
-
-export default connect(mapStateToProps)(Login);
+export default Login;
