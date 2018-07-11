@@ -1,10 +1,10 @@
 import App from './App';
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from '../../../Library/Caches/typescript/2.9/node_modules/redux';
 import middleware from './middleware';
 import reducer from './reducers';
+import { createStore } from 'redux';
 
 const store = createStore(reducer, middleware);
 
