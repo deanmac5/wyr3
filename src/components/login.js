@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 
-import { SET_AUTHED_USER } from '../actions/authedUser';
 import User from './user';
 import { connect } from 'react-redux';
+import { setAuthedUser } from '../actions/authedUser';
 
 class Login extends Component {
 
-
+handleClick = (e, id) => {
+    e.preventDefault();
+    console.log("Button clicked: " + id)
+    this.props.dispatch(setAuthedUser(id))
+}
 
     render() {
         const { users } = this.props
@@ -16,7 +20,7 @@ class Login extends Component {
             <div align="center">
                 <h1>Please login</h1>
                 <ul>
-                {users.map(u => <li key={u.id}> name={u.name} </li>)} 
+                {users.map(u => <li key={u.id} onClick={(e) => this.handleClick(e, u.id)}>{u.name}</li>)} 
                 </ul>
             </div>
         );
