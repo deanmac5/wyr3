@@ -9,12 +9,23 @@ class Login extends Component {
 
 
     render() {
+        const { users } = this.props
+        console.log("here: " + users)
+        
         return (
             <div align="center">
                 <h1>Please login</h1>
-               
+                <ul>
+                {users.map(u => <li key={u.id}> name={u.name} </li>)} 
+                </ul>
             </div>
         );
     }
 }
-export default Login;
+
+function mapStateToProps({ users }) {
+    return {
+        users: Object.values(users)
+    }
+}
+export default connect(mapStateToProps)(Login);

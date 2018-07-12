@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {
-    Redirect,
     Route,
     BrowserRouter as Router,
-    Switch
 } from 'react-router-dom';
 
+import AddQuestion from './components/addquestion';
 import Dashboard from './components/dashboard';
+import Login from './components/login';
+import Navbar from './components/navbar';
+import Question from './components/question';
 import { connect } from 'react-redux';
 import { handleInitialData } from './actions/shared';
 
@@ -17,19 +19,28 @@ class App extends Component {
 
     render() {
         return (
+            <Router>
             <div>
-                {this.props.loading === true
-                    ? null : <Dashboard />}
+                {this.props.authenticated !== true
+                    ? <div><Login /> </div>
+                    : <div>
+                        <Navbar />
+                      <Route path='/' exact component={Dashboard} />
+                      <Route path='/question/:id' component={Question} />
+                      <Route path='/new' component={AddQuestion} />
+                    </div>
+                }
             </div>
+            </ Router>
         )
     }
 }
 
 function mapStateToProps({ authedUser }) {
     return {
-        loading: authedUser === null
+        authenticated: authedUser !== ""
     }
 }
 
 
-export default connect()(App);
+export default connect(mapStateToProps)(App);
