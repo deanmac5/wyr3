@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeAuthedUser } from '../actions/authedUser';
 
@@ -9,24 +10,30 @@ class Navbar extends Component {
     e.preventDefault();
     console.log("Button clicked: " + id)
     this.props.dispatch(removeAuthedUser(id))
+  }
+
+
+  render() {
+    const { authedUser } = this.props
+    return (
+      <div>
+        <h2>Navbar: {authedUser}</h2>
+        <ul>
+          <li><Link to="/">Dashboard</Link></li>
+          <li><Link to="/leaderboard">Leaderboard</Link></li>
+          <li><Link to="/add">Add new question</Link></li>
+
+        </ul>
+        <button onClick={(e) => this.handleClick(e)}>Log out</button>
+      </div>
+    )
+  }
 }
 
-
-    render() {
-      const { authedUser } = this.props
-      return (
-        <div>
-       <h2>Navbar: {authedUser}</h2>
-       <button onClick={(e) => this.handleClick(e)}>Log out</button>
-       </div>
-      )
-    }
+function mapStateToProps({ authedUser }) {
+  return {
+    authedUser: Object.values(authedUser)
   }
+}
 
-  function mapStateToProps({ authedUser }){
-    return {
-      authedUser: Object.values(authedUser)
-    }
-  }
-  
-  export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(Navbar);
