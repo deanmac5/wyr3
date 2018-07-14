@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Question from './question';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ class Dashboard extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {showAnswered: false}
+    this.state = { showAnswered: false }
   }
 
   toggleAnswers = (e) => {
@@ -18,43 +18,61 @@ class Dashboard extends Component {
   }
 
   showUnanswered() {
-    const { questionIds } = this.props;
-    return questionIds ? questionIds.map(id => {
-      <li key={id}>
-      <Question id={id} /> 
-    </li>
-    })
-    : null
+    const { questionIds, answeredIds } = this.props;
+    console.log("Unanswered: " + questionIds);
+    return answeredIds
+      ? questionIds
+        .filter(id => !answeredIds.includes(id))
+        .map(id =>
+        (<li key={id}>
+          {<Question id={id}/>}
+        </li>))
+      : null
+  }
 
+  showAnswered() {
+    const { answeredIds } = this.props;
+    console.log("Answered: " + answeredIds);
+    return answeredIds
+    ? answeredIds.map(id =>
+      (<li key={id}>
+        {<Question id={id}/>}
+      </li>))
+    : null
   }
 
 
   render() {
     console.log("Toggle for show answers is: " + this.state.showAnswered);
     return (
-      <div>
+      <Fragment>
         {this.state.showAnswered 
-        ? <h3>Answered</h3>
-        : <div><h3>Unanswered</h3> {this.showUnanswered()}</div>}
+          ? <h3>Answered</h3>
+          : <h3>Unanswered</h3>
+        }
+        {this.state.showAnswered
+          ? this.showAnswered()
+          : this.showUnanswered()
+        }
 
-        <button onClick={(e) =>this.toggleAnswers(e)}>Toggle</button>
-       
 
-      </div>
+
+        <button onClick={(e) => this.toggleAnswers(e)}>Toggle</button>
+
+
+      </Fragment>
+
     )
   }
 }
 
 function mapStateToProps({ questions, authedUser, users }) {
-  const answers = authedUser ? users[authedUser] : null
-  if(answers !== undefined){
-  console.log("**" + Object.values(answers))
-  }
-  // const answered = users[authedUser].answers
+  const user = authedUser ? users[authedUser] : null
+  const answered = user ? user.answers : null
 
   return {
     questionIds: Object.keys(questions).sort((a, b) => questions[b].timestamp - questions[a].timestamp),
-    // answeredIds: Object.keys(answered).sort((a, b) => questions[b].timestamp - questions[a].timestamp)
+    answeredIds: answered ? Object.keys(answered).sort((a, b) => questions[b].timestamp - questions[a].timestamp) : null
   }
 }
 
