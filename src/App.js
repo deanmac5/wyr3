@@ -40,7 +40,7 @@ class App extends Component {
 
 function mapStateToProps({ authedUser }) {
     return {
-        authenticated: authedUser !== ""
+        authenticated: authedUser !== null
     }
 }
 

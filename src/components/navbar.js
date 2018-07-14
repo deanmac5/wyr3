@@ -31,8 +31,9 @@ class Navbar extends Component {
 }
 
 function mapStateToProps({ authedUser }) {
+  const user = authedUser ? Object.values(authedUser) : null
   return {
-    authedUser: Object.values(authedUser)
+    authedUser: user
   }
 }
 

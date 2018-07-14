@@ -15,8 +15,8 @@ class Question extends Component {
         if (question === null) {
             return <p>That question does not exist</p>
         }
-
-        const {id, author, timestamp} = question; // what question attributes do we want to display?
+        console.log("*****" + Object.values(question.optionOne));
+        const {id, author, timestamp, optionOne, optionTwo} = question; // what question attributes do we want to display?
 
         console.log(this.props);
         return (
@@ -24,12 +24,13 @@ class Question extends Component {
                 <button onClick={(e) => this.toAnswer(e, {id})}>{id}</button>
                 <p>{author}</p>
                 <p>{timestamp}</p>
+                <p>{optionOne.text}</p>
             </div>
         )
     }
 }
 
-function mapStateToProps ({authedUser, users, questions}, {id}){
+function mapStateToProps ({authedUser, questions}, {id}){
     const question = questions[id];
     return {
         authedUser,

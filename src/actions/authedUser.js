@@ -11,5 +11,6 @@ export function setAuthedUser (id) {
 export function removeAuthedUser (id){
   return {
     type: REMOVE_AUTHED_USER,
+    id,
   }
 }
