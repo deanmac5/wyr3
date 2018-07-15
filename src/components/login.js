@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import User from './user';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../actions/authedUser';
 
@@ -13,8 +12,7 @@ handleClick = (e, id) => {
 }
 
     render() {
-        const { users } = this.props
-        console.log("here: " + users)
+        const { users } = this.props;
         
         return (
             <div align="center">

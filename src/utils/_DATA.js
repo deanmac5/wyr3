@@ -120,6 +120,7 @@ let users = {
   }
   
   export function _getUsers () {
+    console.log("INSIDE GET USERS")
     return new Promise((res, rej) => {
       setTimeout(() => res({...users}), 1000)
     })
@@ -148,6 +149,7 @@ let users = {
   }
   
   export function _saveQuestion (question) {
+    console.log("INSIDE _SAVEQUESTION")
     return new Promise((res, rej) => {
       const authedUser = question.author;
       const formattedQuestion = formatQuestion(question);
@@ -201,3 +203,4 @@ let users = {
     })
   }
   
+ 
