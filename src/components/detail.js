@@ -34,7 +34,6 @@ class Detail extends Component {
 
       <div>
         <p>Authed: {authedUser}</p>
-        <p>{question.author}</p>
         <p>{users[question.author].name}</p>
         <img src={users[question.author].avatarURL} alt={users[question.author].name}/>
         <p>{this.formatTimestamp(question.timestamp)}</p>
