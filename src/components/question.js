@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Question extends Component {
@@ -15,17 +16,19 @@ class Question extends Component {
         if (question === null) {
             return <p>That question does not exist</p>
         }
-        console.log("*****" + Object.values(question.optionOne));
+        
         const {id, author, timestamp, optionOne, optionTwo} = question; // what question attributes do we want to display?
 
         console.log(this.props);
         return (
+            <Link to={`/questions/${id}`}>
             <div>
-                <button onClick={(e) => this.toAnswer(e, {id})}>{id}</button>
                 <p>{author}</p>
                 <p>{timestamp}</p>
                 <p>{optionOne.text}</p>
+                <p>{optionTwo.text}</p>
             </div>
+            </Link>
         )
     }
 }

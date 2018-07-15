@@ -6,10 +6,10 @@ import {
 
 import AddQuestion from './components/addquestion';
 import Dashboard from './components/dashboard';
+import Detail from './components/detail';
 import Leaderboard from './components/leaderboard';
 import Login from './components/login';
 import Navbar from './components/navbar';
-import Question from './components/question';
 import { connect } from 'react-redux';
 import { handleInitialData } from './actions/shared';
 
@@ -27,7 +27,7 @@ class App extends Component {
                     : <div>
                         <Navbar />
                       <Route path='/' exact component={Dashboard} />
-                      <Route path='/question/:id' component={Question} />
+                      <Route path='/questions/:id' component={Detail} /> 
                       <Route path='/new' component={AddQuestion} />
                       <Route path='/leaderboard' component={Leaderboard} />
                     </div>

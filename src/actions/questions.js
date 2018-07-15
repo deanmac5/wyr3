@@ -19,7 +19,7 @@ function answerQuestion ({ authedUser, qid, answer }) {
   }
 }
 
-export function handleAnswer(info) {
+export function answerQuestion(info) {
   return (dispatch) => {
     dispatch(answerQuestion(info))
 

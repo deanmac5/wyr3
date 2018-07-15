@@ -1,6 +1,7 @@
+import { answerQuestion, receiveQuestions } from '../actions/questions';
+import { receiveUsers, updateUserAnswer } from '../actions/users';
+
 import { getInitialData } from '../utils/api';
-import { receiveQuestions } from '../actions/questions';
-import { receiveUsers } from '../actions/users';
 import { setAuthedUser } from '../actions/authedUser';
 
 const AUTHED_ID = null
@@ -14,5 +15,12 @@ export function handleInitialData () {
         dispatch(receiveQuestions(questions))
         dispatch(setAuthedUser(AUTHED_ID))
       })
+  }
+}
+
+export function saveVote(data) {
+  return (dispatch) => {
+    dispatch(updateUserAnswer(data))
+    dispatch(answerQuestion(data))
   }
 }
