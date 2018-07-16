@@ -1,6 +1,7 @@
 import { Container, Tab } from 'semantic-ui-react';
 import React, { Component } from 'react';
 
+import Answered from './answered';
 import Question from './question';
 import { connect } from 'react-redux';
 
@@ -39,7 +40,7 @@ class Dashboard extends Component {
     return answeredIds
     ? answeredIds.map(id =>
       (<div>
-        {<Question id={id}/>}
+        {<Answered id={id}/>}
       </div>))
     : null
   }

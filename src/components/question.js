@@ -9,7 +9,7 @@ class Question extends Component {
     formatTimestamp(timestamp) {
         const date = new Date(timestamp);
         return date.toDateString();
-      }
+    }
 
     render() {
         const { question } = this.props;
@@ -23,20 +23,25 @@ class Question extends Component {
 
         return (
             <Link to={`/questions/${id}`}>
-                <Card>
-                    <Card.Content>
-                        <Image floated='right' size='mini' src={users[author].avatarURL} />
-                        <Card.Header>{users[author].name}</Card.Header>
-                        <Card.Meta>{this.formatTimestamp(timestamp)}</Card.Meta>
-                        <Card.Description>
-                            {optionOne.text}<p> Or</p>
+                <Card.Group>
+                    <Card color='yellow'>
+                        <Card.Content>      
+                            <Image floated='right' size='mini' src={users[author].avatarURL} />
+                            <Card.Header>{users[author].name}</Card.Header>
+                            <Card.Meta>{this.formatTimestamp(timestamp)}</Card.Meta>
+                            <Card.Description>
+                                {optionOne.text}
+                            </Card.Description>
+                            <Card.Description align='center'>
+                                or
                             </Card.Description>
                             <Card.Description>
-                            {optionTwo.text}
-                        </Card.Description>
-                    </Card.Content>
+                                {optionTwo.text}
+                            </Card.Description>
+                        </Card.Content>
 
-                </Card>
+                    </Card>
+                </Card.Group>
             </Link>
         )
     }
