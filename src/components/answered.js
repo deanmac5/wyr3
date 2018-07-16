@@ -20,7 +20,7 @@ class Answered extends Component {
                     {` has ${option.votes.length} vote(s)`}
                 </p>
                 <p>
-                    {` which is ${option.votes.length * 100 / totalLength}%`}
+                    {` which is ${Math.round((option.votes.length * 100) / totalLength)}%`}
                 </p>
             </Fragment>)
     }
