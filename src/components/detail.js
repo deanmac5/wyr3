@@ -1,3 +1,4 @@
+import { Button, Card, Container, Form, Image, Radio, Select } from 'semantic-ui-react';
 import { Link, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 
@@ -18,9 +19,9 @@ class Detail extends Component {
   }
 
 
-  changeAnswer(e) {
+  changeAnswer(e, val) {
     e.preventDefault();
-    this.setState({ selectedAnswer: e.target.value });
+    this.setState({ selectedAnswer: val });
   }
 
   handleQuestionAnswer = (e) => {
@@ -38,68 +39,84 @@ class Detail extends Component {
     const option1 = Object.keys(question).filter(answer => answer === 'optionOne')
     const option2 = Object.keys(question).filter(answer => answer === 'optionTwo')
 
-    return user 
-            ?  question.optionOne.votes.includes(user.toString()) ||
-               question.optionTwo.votes.includes(user.toString())
-                ? <div>
-                    <div>
-                      <p>{question.optionOne.text}</p>
-             
-                    </div>
-                    <div>
-                      <p>{question.optionTwo.text}</p>
-                   
-                    </div>
-                  </div>
-                : <div>
-                    <form onSubmit={this.handleQuestionAnswer}>
-                      <select
+    return user
+      ? question.optionOne.votes.includes(user.toString()) ||
+        question.optionTwo.votes.includes(user.toString())
+        ? <div>
+            <div>
+              <p>{question.optionOne.text}</p>
+          </div>
+          <div>
+            <p>{question.optionTwo.text}</p>
+          </div>
+        </div>
+        : <Container>
+          <Form onSubmit={this.handleQuestionAnswer}>
+            <Form.Group>
+              
+              <Form.Field
+                control={Radio}
+                label={question.optionOne.text}
+                value='optionOne'
+                checked={this.state.selectedAnswer==='optionOne'}
+                onChange={(e) => this.changeAnswer(e, 'optionOne')}
+              />
+              <Form.Field
+                control={Radio}
+                label={question.optionTwo.text}
+                value='optionTwo'
+                checked={this.state.selectedAnswer==='optionTwo'}
+                onChange={(e) => this.changeAnswer(e, 'optionTwo')}
+              />
+
+
+              {/* <select
                         onChange={(e) => this.changeAnswer(e)}
                         defaultValue='Select an answer'>
                         <option value='Select an answer' disabled hidden>Select an answer</option>
                         <option value={option1}>{question.optionOne.text}</option>
                         <option value={option2}>{question.optionTwo.text}</option>
-                      </select>
-                      <input type="submit" value="Submit" />
-                    </form>
-                  </div>
-              : null
+                      </select> */}
+            </Form.Group>
+            <Form.Field control={Button}>Submit</Form.Field>
+          </Form>
+        </Container>
+      : null
   }
 
   render() {
     const { author, users, question } = this.props
     return (
       <div>
-      { author === null
+        {author === null
           ? <Redirect to='/login' />
-          : <div className='question-detail-link'>
-              <Link to='/dashboard'>
-              
-                Back
-              </Link>
-              <div>
-                <div>
-                  <img src={users[author].avatarURL} alt={users[author].name}/>
-                  <div>
-                    <p>{users[author].name}</p>
-                    <p>{this.formatTimestamp(question.timestamp)}</p>
-                  </div>
-                  <div>
-            
-                  </div>
-                </div>
-                <div>
-                  <h1>WOULD YOU RATHER</h1>
-                </div>
-                {this.showForm()}
-              </div>
-            </div> }
+          : <Container>
+            <Card fluid>
+              <Card.Content>
+                <Image floated='left' size='mini' src={users[author].avatarURL} />
+                <Card.Header>{users[author].name}</Card.Header>
+                <Card.Meta>asked on {this.formatTimestamp(question.timestamp)}</Card.Meta>
+                <Card.Description>
+                  Would you rather:
+                  {this.showForm()}
+                </Card.Description>
+              </Card.Content>
+            </Card>
+          </Container>
+         
+
+          // <div>
+          //   <h1>WOULD YOU RATHER</h1>
+          //   {this.showForm()}
+          // </div>
+
+        }
       </div>
     )
   }
 }
 
-function mapStateToProps ({ users, questions, authedUser }, props) {
+function mapStateToProps({ users, questions, authedUser }, props) {
   const { id } = props.match.params
   const questionId = questions[id]
 

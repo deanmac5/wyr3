@@ -1,4 +1,4 @@
-import { Button, Container, Form } from 'semantic-ui-react';
+import { Button, Container, Form, Message } from 'semantic-ui-react';
 import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
@@ -48,7 +48,12 @@ class AddQuestion extends Component {
 
     return (
       <Container>
+        <Message info>
+    <Message.Header>Make your own question</Message.Header>
+    <p>Would you rather...</p>
+  </Message>
         <Form onSubmit={this.saveValues}>
+      
           <Form.Field>
             <label>Option one:</label>
             <input placeholder='Option one' value={this.state.option1} onChange={(e) => this.addValue(e, 1)} />
