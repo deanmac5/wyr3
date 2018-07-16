@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import { Container, Tab } from 'semantic-ui-react';
+import React, { Component } from 'react';
 
 import Question from './question';
 import { connect } from 'react-redux';
@@ -24,9 +25,9 @@ class Dashboard extends Component {
       ? questionIds
         .filter(id => !answeredIds.includes(id))
         .map(id =>
-        (<li key={id}>
+        (<div>
           {<Question id={id}/>}
-        </li>))
+        </div>))
       : null
   }
 
@@ -35,33 +36,24 @@ class Dashboard extends Component {
   
     return answeredIds
     ? answeredIds.map(id =>
-      (<li key={id}>
+      (<div>
         {<Question id={id}/>}
-      </li>))
+      </div>))
     : null
   }
 
 
   render() {
+    const panes = [
+      { menuItem: 'Unanswered', render: () => <Tab.Pane>{this.showUnanswered()}</Tab.Pane> },
+      { menuItem: 'Answered', render: () => <Tab.Pane>{this.showAnswered()}</Tab.Pane> },
+    
+    ]
    
     return (
-      <Fragment>
-        {this.state.showAnswered 
-          ? <h3>Answered</h3>
-          : <h3>Unanswered</h3>
-        }
-        {this.state.showAnswered
-          ? this.showAnswered()
-          : this.showUnanswered()
-        }
-
-
-
-        <button onClick={(e) => this.toggleAnswers(e)}>Toggle</button>
-
-
-      </Fragment>
-
+      <Container>
+        <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+      </Container>
     )
   }
 }
