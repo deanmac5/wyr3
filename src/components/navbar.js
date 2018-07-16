@@ -21,7 +21,7 @@ class Navbar extends Component {
   render() {
     const { activeItem } = this.state
     const { authedUser } = this.props
-
+  
     return (
       <Menu>
         <Menu.Item
@@ -52,6 +52,7 @@ class Navbar extends Component {
         </Menu.Item>
 
         <Menu.Item position="right"
+          active={activeItem === 'name'}
           name='user'
         >
           Currently logged in as {Object.values(authedUser)}
