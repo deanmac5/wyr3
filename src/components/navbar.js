@@ -64,7 +64,6 @@ class Navbar extends Component {
           Log out
         </Menu.Item>
       </Menu>
-
     )
   }
 }

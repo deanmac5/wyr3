@@ -1,3 +1,4 @@
+import { Button, Container, Form } from 'semantic-ui-react';
 import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
@@ -15,11 +16,12 @@ class AddQuestion extends Component {
   }
 
   addValue(e, id) {
-    if(id === 1){
-    this.setState({
-      option1: e.target.value
-    })}
-    else{
+    if (id === 1) {
+      this.setState({
+        option1: e.target.value
+      })
+    }
+    else {
       this.setState({
         option2: e.target.value
       })
@@ -28,7 +30,7 @@ class AddQuestion extends Component {
 
   saveValues = (e) => {
     e.preventDefault();
- 
+
     this.props.dispatch(recordAdd({
       author: this.props.authedUser,
       optionOneText: this.state.option1,
@@ -37,23 +39,29 @@ class AddQuestion extends Component {
     this.setState({
       saved: true
     })
-  } 
+  }
 
   render() {
-    if(this.state.saved){
-      return <Redirect to='/'/>
+    if (this.state.saved) {
+      return <Redirect to='/' />
     }
 
     return (
-      <div>
-        <h2>AddQuestion</h2>
-        <form onSubmit={this.saveValues}>
-          <input value={this.state.option1} type="text" onChange={(e) => this.addValue(e, 1)}/> 
-          <p>OR</p>
-          <input value={this.state.option2} type="text" onChange={(e) => this.addValue(e, 2)}/>
-          <input type="submit" />
-        </form>
-      </div>
+      <Container>
+        <Form onSubmit={this.saveValues}>
+          <Form.Field>
+            <label>Option one:</label>
+            <input placeholder='Option one' value={this.state.option1} onChange={(e) => this.addValue(e, 1)} />
+          </Form.Field>
+          <Form.Field>
+            <label>Option two:</label>
+            <input placeholder='Option two' value={this.state.option2} onChange={(e) => this.addValue(e, 2)} />
+          </Form.Field>
+
+          <Button type='submit'>Submit</Button>
+        </Form>
+      </Container>
+
     )
   }
 }
