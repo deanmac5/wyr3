@@ -1,31 +1,64 @@
 import React, { Component } from 'react';
 
 import { Link } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { removeAuthedUser } from '../actions/authedUser';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-  handleClick = (e, id) => {
+  handleLogout = (e, id) => {
     e.preventDefault();
- 
     this.props.dispatch(removeAuthedUser(id))
   }
 
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
+    const { activeItem } = this.state
     const { authedUser } = this.props
     return (
-      <div>
-        <h2>Navbar: {authedUser}</h2>
-        <ul>
-          <li><Link to="/">Dashboard</Link></li>
-          <li><Link to="/leaderboard">Leaderboard</Link></li>
-          <li><Link to="/add">Add new question</Link></li>
+      <Menu>
+        <Menu.Item
+          name='Home'
+          active={activeItem === 'home'}
+          onClick={this.handleItemClick}
+          
+        >
+          Would You Rather
+        </Menu.Item>
+        <Menu.Item
+          name='dashboard'
+          active={activeItem === 'dashboard'}
+          onClick={this.handleItemClick}
+        >
+          <Link to="/">Dashboard</Link>
+        </Menu.Item>
 
-        </ul>
-        <button onClick={(e) => this.handleClick(e)}>Log out</button>
-      </div>
+        <Menu.Item name='leaderboard' active={activeItem === 'leaderboard'} onClick={this.handleItemClick}>
+        <Link to="/leaderboard">Leaderboard</Link>
+        </Menu.Item>
+
+        <Menu.Item
+          name='add'
+          active={activeItem === 'add'}
+          onClick={this.handleItemClick}
+        >
+          <Link to="/add">Add new question</Link>
+        </Menu.Item>
+
+        <Menu.Item position="right"
+          name='logout'
+          onClick={(e) => this.handleLogout(e)}
+        >
+         Log out
+        </Menu.Item>
+      </Menu>
+
     )
   }
 }
