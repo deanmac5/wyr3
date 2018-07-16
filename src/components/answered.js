@@ -16,14 +16,14 @@ class Answered extends Component {
         const totalLength = question.optionOne.votes.length + question.optionTwo.votes.length
         return (
             <Fragment>
-        <p>
-            {` has ${option.votes.length} vote(s)`}
-        </p>
-            <p>
-                {` which is ${option.votes.length * 100 / totalLength}%`}
-            </p>
+                <p>
+                    {` has ${option.votes.length} vote(s)`}
+                </p>
+                <p>
+                    {` which is ${option.votes.length * 100 / totalLength}%`}
+                </p>
             </Fragment>)
-      }
+    }
 
     render() {
         const { question } = this.props;
