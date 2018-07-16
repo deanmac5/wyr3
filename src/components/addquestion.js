@@ -28,8 +28,7 @@ class AddQuestion extends Component {
 
   saveValues = (e) => {
     e.preventDefault();
-    console.log(this.props)
-
+ 
     this.props.dispatch(recordAdd({
       author: this.props.authedUser,
       optionOneText: this.state.option1,

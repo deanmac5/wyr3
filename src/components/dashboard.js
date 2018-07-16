@@ -19,7 +19,7 @@ class Dashboard extends Component {
 
   showUnanswered() {
     const { questionIds, answeredIds } = this.props;
-    console.log("Unanswered: " + questionIds);
+    
     return answeredIds
       ? questionIds
         .filter(id => !answeredIds.includes(id))
@@ -32,7 +32,7 @@ class Dashboard extends Component {
 
   showAnswered() {
     const { answeredIds } = this.props;
-    console.log("Answered: " + answeredIds);
+  
     return answeredIds
     ? answeredIds.map(id =>
       (<li key={id}>
@@ -43,7 +43,7 @@ class Dashboard extends Component {
 
 
   render() {
-    console.log("Toggle for show answers is: " + this.state.showAnswered);
+   
     return (
       <Fragment>
         {this.state.showAnswered 

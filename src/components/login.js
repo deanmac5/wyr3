@@ -7,7 +7,7 @@ class Login extends Component {
 
 handleClick = (e, id) => {
     e.preventDefault();
-    console.log("Button clicked: " + id)
+
     this.props.dispatch(setAuthedUser(id))
 }
 

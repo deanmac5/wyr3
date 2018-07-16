@@ -8,7 +8,7 @@ class Navbar extends Component {
 
   handleClick = (e, id) => {
     e.preventDefault();
-    console.log("Button clicked: " + id)
+ 
     this.props.dispatch(removeAuthedUser(id))
   }
 

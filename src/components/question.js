@@ -4,12 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Question extends Component {
-    toAnswer = (e, id) => {
-        e.preventDefault()
-        // todo: handleAnswer 
-        // might just need to route to an answer detail page
-    }
-
+  
     render() {
         const { question } = this.props;
 
@@ -17,9 +12,8 @@ class Question extends Component {
             return <p>That question does not exist</p>
         }
         
-        const {id, author, timestamp, optionOne, optionTwo} = question; // what question attributes do we want to display?
+        const {id, author, timestamp, optionOne, optionTwo} = question; 
 
-        console.log(this.props);
         return (
             <Link to={`/questions/${id}`}>
             <div>
