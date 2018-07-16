@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { handleAdd } from '../actions/questions';
+import { recordAdd } from '../actions/questions';
 
 class AddQuestion extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class AddQuestion extends Component {
     e.preventDefault();
     console.log(this.props)
 
-    this.props.dispatch(handleAdd({
+    this.props.dispatch(recordAdd({
       author: this.props.authedUser,
       optionOneText: this.state.option1,
       optionTwoText: this.state.option2

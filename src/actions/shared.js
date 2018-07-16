@@ -1,4 +1,4 @@
-import { answerQuestion, receiveQuestions } from '../actions/questions';
+import { receiveQuestions, recordAnswerQuestion } from '../actions/questions'
 import { receiveUsers, updateUserAnswer } from '../actions/users';
 
 import { getInitialData } from '../utils/api';
@@ -18,9 +18,9 @@ export function handleInitialData () {
   }
 }
 
-export function saveVote(data) {
+export function recordQuestionVote (data){
   return (dispatch) => {
     dispatch(updateUserAnswer(data))
-    dispatch(answerQuestion(data))
+    dispatch(recordAnswerQuestion(data))
   }
 }

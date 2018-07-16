@@ -18,19 +18,24 @@ function addQuestion(question) {
   }
 }
 
-export function handleAdd ({ author, optionOneText, optionTwoText }) {
-  console.log("Inside handleAdd");
-  return (dispatch) => dispatch(saveQuestion({
-      author,
-      optionOneText,
-      optionTwoText,
-    }))
-  
+function answerQuestion({qid, authedUser, answer}) {
+  return {
+    type: ANSWER_QUESTION,
+    qid,
+    authedUser,
+    answer
+  }
+}
 
+export function recordAdd({ author, optionOneText, optionTwoText }) {
+  return (dispatch) => dispatch(saveQuestion({
+    author,
+    optionOneText,
+    optionTwoText,
+  }))
 }
 
 export function saveQuestion({ author, optionOneText, optionTwoText }) {
-  console.log("Inside saveQuestion");
   return (dispatch) => {
     _saveQuestion({
       author,
@@ -41,14 +46,12 @@ export function saveQuestion({ author, optionOneText, optionTwoText }) {
 }
 
 
-export function answerQuestion(info) {
-  return (dispatch) => {
-    dispatch(answerQuestion(info))
-
-    return _saveQuestionAnswer(info)
-      .catch((e) => {
-        console.warn('Error in handleAnswer: ', e)
-        alert('There was an error answering the question.');
-      })
+export function recordAnswerQuestion( data ) {
+return (dispatch) => {
+    dispatch(answerQuestion(data))
+    return(_saveQuestionAnswer(data))
   }
 }
+
+
+

@@ -1,13 +1,14 @@
+import { Link, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
-import { saveVote } from '../actions/shared';
+import { recordQuestionVote } from '../actions/shared';
 
 class Detail extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      answer: ''
+      selectedAnswer: 'optionOne' // default option
     }
   }
 
@@ -16,54 +17,105 @@ class Detail extends Component {
     return date.toTimeString();
   }
 
-  handleAnswer = (e, value) => {
-    e.preventDefault();
-    const {dispatch, authedUser, id } = this.props;
-    console.log("Click: " + value)
-    // dispatch(saveVote({
-    //   id,
-    //   authedUser: authedUser.toString(),
-    //   answer: this.state.answer
-    // }))
+//   checkAnswerLength(option) {
+//     const { question } = this.props
+//     const totalLength = question.optionOne.votes.length + question.optionTwo.votes.length
+//     return  <p>
+//               {`${option.votes.length} vote(s) | ${option.votes.length*100/totalLength}%`}
+//             </p>
+//   }
+
+  changeAnswer(e) {
+    this.setState({ selectedAnswer: e.target.value });
+  }
+
+  handleQuestionAnswer = (e) => {
+    e.preventDefault()
+    const { dispatch, user, id } = this.props
+    dispatch(recordQuestionVote({
+      qid: id,
+      authedUser: user,
+      answer: this.state.selectedAnswer,
+    }))
+  }
+
+  showForm() {
+    const { question, user } = this.props
+    const option1 = Object.keys(question).filter(answer => answer === 'optionOne')
+    const option2 = Object.keys(question).filter(answer => answer === 'optionTwo')
+
+    return user 
+            ?  question.optionOne.votes.includes(user.toString()) ||
+               question.optionTwo.votes.includes(user.toString())
+                ? <div>
+                    <div>
+                      <p>{question.optionOne.text}</p>
+             
+                    </div>
+                    <div>
+                      <p>{question.optionTwo.text}</p>
+                   
+                    </div>
+                  </div>
+                : <div>
+                    <form onSubmit={this.handleQuestionAnswer}>
+                      <select
+                        onChange={this.changeAnswer}
+                        defaultValue='Select an answer'>
+                        <option value='Select an answer' disabled hidden>Select an answer</option>
+                        <option value={option1}>{question.optionOne.text}</option>
+                        <option value={option2}>{question.optionTwo.text}</option>
+                      </select>
+                      <input type="submit" value="Submit" />
+                    </form>
+                  </div>
+              : null
   }
 
   render() {
-    const { question, authedUser, users } = this.props
-
+    const { author, users, question } = this.props
     return (
-
       <div>
-        <p>Authed: {authedUser}</p>
-        <p>{users[question.author].name}</p>
-        <img src={users[question.author].avatarURL} alt={users[question.author].name}/>
-        <p>{this.formatTimestamp(question.timestamp)}</p>
-        <h2>Would You Rather:</h2>
-        {/* <button onClick={(e) => this.toggleAnswers(e)}>Toggle</button> */}
-      
-        <button onClick={(e) => this.handleAnswer(e, 1)}>{question.optionOne.text}</button>
-        <p>OR</p>
-        <button onClick={(e) => this.handleAnswer(e, 2)}>{question.optionTwo.text}</button>
-      
+      { author === null
+          ? <Redirect to='/login' />
+          : <div className='question-detail-link'>
+              <Link to='/dashboard'>
+              
+                Back
+              </Link>
+              <div>
+                <div>
+                  <img src={users[author].avatarURL} alt={users[author].name}/>
+                  <div>
+                    <p>{users[author].name}</p>
+                    <p>{this.formatTimestamp(question.timestamp)}</p>
+                  </div>
+                  <div>
+            
+                  </div>
+                </div>
+                <div>
+                  <h1>WOULD YOU RATHER</h1>
+                </div>
+                {this.showForm()}
+              </div>
+            </div> }
       </div>
-
     )
-
   }
 }
 
-function mapStateToProps({ questions, authedUser, users }, props) {
-
-  const { id } = props.match.params;
-  const questionId = questions[id];
+function mapStateToProps ({ users, questions, authedUser }, props) {
+  const { id } = props.match.params
+  const questionId = questions[id]
 
   return {
     id,
+    author: questionId ? questionId.author : null,
     question: questionId,
-    authedUser,
+    user: authedUser,
     users,
   }
 }
 
-
-
-export default connect(mapStateToProps)(Detail);
+export default connect(mapStateToProps)(Detail)
