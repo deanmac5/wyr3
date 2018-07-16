@@ -14,18 +14,12 @@ class Detail extends Component {
 
   formatTimestamp(timestamp) {
     const date = new Date(timestamp);
-    return date.toTimeString();
+    return date.toDateString();
   }
 
-//   checkAnswerLength(option) {
-//     const { question } = this.props
-//     const totalLength = question.optionOne.votes.length + question.optionTwo.votes.length
-//     return  <p>
-//               {`${option.votes.length} vote(s) | ${option.votes.length*100/totalLength}%`}
-//             </p>
-//   }
 
   changeAnswer(e) {
+    e.preventDefault();
     this.setState({ selectedAnswer: e.target.value });
   }
 
@@ -60,7 +54,7 @@ class Detail extends Component {
                 : <div>
                     <form onSubmit={this.handleQuestionAnswer}>
                       <select
-                        onChange={this.changeAnswer}
+                        onChange={(e) => this.changeAnswer(e)}
                         defaultValue='Select an answer'>
                         <option value='Select an answer' disabled hidden>Select an answer</option>
                         <option value={option1}>{question.optionOne.text}</option>

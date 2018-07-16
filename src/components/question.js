@@ -20,7 +20,6 @@ class Question extends Component {
 
         const { id, author, timestamp, optionOne, optionTwo } = question;
         const { users } = this.props;
-        console.log("hope: " + users[author].name)
 
         return (
             <Link to={`/questions/${id}`}>
