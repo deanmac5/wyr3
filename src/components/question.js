@@ -6,6 +6,11 @@ import { connect } from 'react-redux';
 
 class Question extends Component {
 
+    formatTimestamp(timestamp) {
+        const date = new Date(timestamp);
+        return date.toDateString();
+      }
+
     render() {
         const { question } = this.props;
 
@@ -23,9 +28,11 @@ class Question extends Component {
                     <Card.Content>
                         <Image floated='right' size='mini' src={users[author].avatarURL} />
                         <Card.Header>{users[author].name}</Card.Header>
-                        <Card.Meta>{timestamp}</Card.Meta>
+                        <Card.Meta>{this.formatTimestamp(timestamp)}</Card.Meta>
                         <Card.Description>
-                            {optionOne.text}
+                            {optionOne.text}<p> Or</p>
+                            </Card.Description>
+                            <Card.Description>
                             {optionTwo.text}
                         </Card.Description>
                     </Card.Content>
