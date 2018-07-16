@@ -1,3 +1,4 @@
+import { Container, Header } from 'semantic-ui-react';
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -15,12 +16,19 @@ handleClick = (e, id) => {
         const { users } = this.props;
         
         return (
-            <div align="center">
-                <h1>Please login</h1>
+            
+
+
+
+
+
+            <Container>
+                <div></div>
+                 <Header as='h2' color='teal' textAlign='center'>Please login</Header>
                 <ul>
                 {users.map(u => <li key={u.id} onClick={(e) => this.handleClick(e, u.id)}>{u.name}</li>)} 
                 </ul>
-            </div>
+            </Container>
         );
     }
 }
