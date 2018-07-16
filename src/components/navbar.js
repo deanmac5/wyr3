@@ -21,13 +21,13 @@ class Navbar extends Component {
   render() {
     const { activeItem } = this.state
     const { authedUser } = this.props
+
     return (
       <Menu>
         <Menu.Item
           name='Home'
           active={activeItem === 'home'}
           onClick={this.handleItemClick}
-          
         >
           Would You Rather
         </Menu.Item>
@@ -40,7 +40,7 @@ class Navbar extends Component {
         </Menu.Item>
 
         <Menu.Item name='leaderboard' active={activeItem === 'leaderboard'} onClick={this.handleItemClick}>
-        <Link to="/leaderboard">Leaderboard</Link>
+          <Link to="/leaderboard">Leaderboard</Link>
         </Menu.Item>
 
         <Menu.Item
@@ -52,10 +52,16 @@ class Navbar extends Component {
         </Menu.Item>
 
         <Menu.Item position="right"
+          name='user'
+        >
+          Currently logged in as {Object.values(authedUser)}
+        </Menu.Item>
+
+        <Menu.Item position="right"
           name='logout'
           onClick={(e) => this.handleLogout(e)}
         >
-         Log out
+          Log out
         </Menu.Item>
       </Menu>
 
@@ -64,9 +70,9 @@ class Navbar extends Component {
 }
 
 function mapStateToProps({ authedUser }) {
-  const user = authedUser ? Object.values(authedUser) : null
+
   return {
-    authedUser: user
+    authedUser,
   }
 }
 

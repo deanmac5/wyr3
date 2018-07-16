@@ -22,7 +22,6 @@ export function updateAnswer ({qid, authedUser, answer}) {
 }
 
 export function updateUserAnswer ( data )  {
-  const {qid, authedUser, answer } = data
   return (dispatch) => {
     dispatch(updateAnswer(data))
     return _saveQuestionAnswer(data)
