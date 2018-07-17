@@ -12,6 +12,7 @@ import Leaderboard from './components/leaderboard';
 import Login from './components/login';
 import Navbar from './components/navbar';
 import NotFound from './components/notfound';
+import Result from './components/result';
 import { connect } from 'react-redux';
 import { handleInitialData } from './actions/shared';
 
@@ -31,6 +32,7 @@ class App extends Component {
                         <Switch>
                       <Route path='/' exact component={Dashboard} />
                       <Route path='/questions/:id'  component={Detail} /> 
+                      <Route path='/result/:id'  component={Result} /> 
                       <Route path='/add' component={AddQuestion} />
                       <Route path='/leaderboard'  component={Leaderboard} />
                       <Route component={NotFound} />

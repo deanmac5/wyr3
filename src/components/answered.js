@@ -1,7 +1,6 @@
 import { Card, Image, Message } from 'semantic-ui-react';
 import React, { Component, Fragment } from 'react';
 
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Answered extends Component {
@@ -32,7 +31,7 @@ class Answered extends Component {
             return <p>That question does not exist</p>
         }
 
-        const { id, author, timestamp, optionOne, optionTwo } = question;
+        const { id, author, optionOne, optionTwo } = question;
         const { users, authedUser } = this.props;
 
         return (
@@ -77,7 +76,8 @@ class Answered extends Component {
     }
 }
 
-function mapStateToProps({ authedUser, questions, users }, { id }) {
+function mapStateToProps({ authedUser, questions, users }, {id}) {
+
     const question = questions[id];
     return {
         authedUser,

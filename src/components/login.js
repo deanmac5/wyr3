@@ -1,4 +1,4 @@
-import { Card, Container, Header, Icon, Image } from 'semantic-ui-react';
+import { Card, Container, Header, Image } from 'semantic-ui-react';
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -16,7 +16,6 @@ class Login extends Component {
         const { users } = this.props;
 
         return (
-
             <Container>
                 <div></div>
                 <Header as='h2' color='teal' textAlign='center'>Please login</Header>
@@ -25,7 +24,7 @@ class Login extends Component {
                         <Card onClick={(e) => this.handleClick(e, u.id)}>
                             <Image src={u.avatarURL} />
                             <Card.Content>
-                                <Card.Header>{u.name} {u.id}</Card.Header>
+                                <Card.Header>{u.name}</Card.Header>
                             </Card.Content>
 
                         </Card>
